@@ -6,7 +6,8 @@
 
       <ion-nav-buttons side="left">
         <div class="buttons">
-          <a class="button button-icon icon ion-ios-bookmarks-outline" menu-toggle="left" ng-click="toQueue()"><span class="badge badge-assertive header-badge">5</span></a>
+          <a class="button button-icon icon ion-ios-bookmarks-outline" menu-toggle="left" ng-click="toQueue()"><span class="badge badge-assertive header-badge">{{no_of_incomplete_units}}</span></a>
+          <!-- <a class="button button-icon icon ion-ios-bookmarks-outline" menu-toggle="left" ng-click="toQueue()"><span class="badge badge-assertive header-badge">5</span></a> -->
         </div>
         <h1 class="title">Wekuume</h1>
         <div class="buttons">
@@ -47,9 +48,9 @@
             <img ng-src="img/{{topic.image}}">
           </div>
           <ion-item class="item-stable item-icon-right" ng-click="toggleUnits(topic)">
-            <i class="icon ion-flag item-icon-left" ng-if="topic.kind == 'practice'"></i>
-            <i class="icon ion-wrench item-icon-left" ng-if="topic.kind == 'tool'"></i>
-            <i class="icon ion-university item-icon-left" ng-if="topic.kind == 'understand'"></i>
+            <!-- <i class="icon ion-flag item-icon-left" ng-if="topic.kind == 'practice'"></i>
+            <i class="icon ion-wrench item-icon-left" ng-if="topic.kind == 'tool'"></i> -->
+            <!-- <i class="icon ion-university item-icon-left" ng-if="topic.kind == 'understand'"></i> -->
             <span class="title">{{topic.title}}</span>
             <a class="button  button-icon icon ion-android-download item-icon-right" ng-show="(!topic.isDownloaded)" ng-click="downloadTopic(topic)"></a>
             <a class="button  button-icon icon item-icon-right" ng-show="(topic.isDownloaded)" ng-class="{'ion-arrow-down-b': !topic.showUnits, 'ion-arrow-up-b': topic.showUnits }"></a>
@@ -76,7 +77,7 @@
         </div>
         <a class="item" href="#/app/topics?unit={{unit.slug}}" ng-repeat="unit in incompleteUnits">
           <h2>{{unit.title}}</h2>
-          <p>{{unit.parentTitle}}</p>
+          <p>{{unit.parentTitle}}</p>          
         </a>
         <div class="item item-divider">
           Learn More

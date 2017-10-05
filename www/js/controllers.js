@@ -1,13 +1,15 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('StartCtrl', function($scope, $state) {
-
+.controller('StartCtrl', function($scope, $state, DBService) {
+  var settings = DBService.loadSettings();
+  console.log(settings);
 })
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
 
   // Called to navigate to the main app
   $scope.startApp = function() {
+    console.log("Starting...");
     $state.go('home.learn');
   };
   $scope.next = function() {
@@ -45,7 +47,7 @@ angular.module('starter.controllers', ['starter.services'])
         { text: "OSX (Mac)", checked: false },
         { text: "Linux", checked: false }
       ],
-      contentUrl: "http://openmentoring.io",
+      contentUrl: "http://wekuume.github.io/wekuume.com/dist/build/",
       profile: "journo"
     };
 
@@ -105,7 +107,7 @@ angular.module('starter.controllers', ['starter.services'])
       { text: "OSX (Mac)", checked: false },
       { text: "Linux", checked: false }
     ],
-    contentUrl: "http://openmentoring.io",
+    contentUrl: "https://wekuume.github.io/wekuume.com/dist/build/",
     profile: "journo"
   };
 
@@ -148,6 +150,8 @@ angular.module('starter.controllers', ['starter.services'])
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
   $scope.data = {};
   $scope.currentUnit = null;
+  $scope.incompleteUnits = DBService.getIncompleteUnits();  
+  $scope.no_of_incomplete_units = $scope.incompleteUnits.length;
 
   //if the unit was passed in to the url, add it to the global variable that is also used by the custom URL handler
   if($stateParams.unit) {
@@ -271,12 +275,15 @@ angular.module('starter.controllers', ['starter.services'])
       url: INDEX_URL,
       responseType: 'json'
     }).then(function (resp) {
+      console.log("Downloading topics list");
+      //console.log(resp.data.item);
       var topics = DBService.loadTopics(resp.data.items);
       $scope.topics = topics;
       _doFilter();
     }, function(err) {
       // Error
       console.log('error');
+      console.log('Failed to fetch topic list');
       console.log(err);
     }).finally(function() {
       // Stop the ion-refresher from spinning
@@ -290,6 +297,7 @@ angular.module('starter.controllers', ['starter.services'])
     var dfd = $q.defer();
     $ionicPlatform.ready(function() {}).then(function () {
       var url = topic.downloadUrl;
+      console.log(url);
       var targetPath = cordova.file.applicationStorageDirectory + topic.slug + '.zip';
       var trustHosts = true;
       var options = {};
@@ -533,7 +541,9 @@ angular.module('starter.controllers', ['starter.services'])
       var cardList = [];
       var re = /src=\"(.*)\"/ig;
       var linkingRe = /href=\"topics\/([A-Za-z0-9_\-]*)\/([A-Za-z0-9_\-]*)(\.md)?\"/ig;
+      console.log(linkingRe);
       var linkingCard = /href=\"topics\/([A-Za-z0-9_\-]*)\/([A-Za-z0-9_\-]*)\/([A-Za-z0-9_\-]*)(\.md)?\"/ig;
+      console.log(linkingCard);
       _.forEach(groupedCardList, function(group){
         var done = false;
         _.forEach(group, function(card){
@@ -547,13 +557,16 @@ angular.module('starter.controllers', ['starter.services'])
           };
 
           card.contents = card.contents.replace(re, "src=\"" + imgBaseUrl + "/$1\"");
+          console.log(card.contents);
           // card.contents = card.contents.replace(linkingRe, "href=\"#/home/learn?unit=$1_$2\"");
           card.contents = card.contents.replace(linkingRe, "ng-click=\"goToUnit('$1_$2')\"");
+          console.log(card.contents);
           card.contents = card.contents.replace(linkingCard, "ng-click=\"goTo('$3')\"");
+          console.log(card.contents);
           // Called to navigate to the main app
 
           var profiles = _.filter(card.category, function(i) {
-            return _.startsWith(i,'profile:');0
+            return _.startsWith(i,'profile:');
           });
 
           if(group.length == 1) {
@@ -581,6 +594,8 @@ angular.module('starter.controllers', ['starter.services'])
       $scope.currentProgress = "scaleX(" + $scope.swiper.progress + ")";
       $scope.modal.show();
       $scope.swiper.attachEvents();
+      console.log("samson");
+      console.log(window.location.href);
     }, function(err) {
       // Error
       console.log('error');

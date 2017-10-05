@@ -5,7 +5,7 @@
 .sass-cache
 node_modules/
 /lib/
-platforms/ios
+platforms/
 build/
 .gradle/
 /plugins/

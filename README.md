@@ -34,3 +34,8 @@ Run the app using Genymotion (if installed):
 Preview the app in your browser (great for styling):
 
 ```$ ionic serve```
+
+##Change Log
+`cordova plugin add cordova-plugin-file-transfer`
+`cordova plugin add cordova-plugin-file`
+`cordova plugin add cordova-plugin-whitelist`

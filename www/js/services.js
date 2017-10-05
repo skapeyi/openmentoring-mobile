@@ -44,12 +44,13 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
   var _downloadedTopics;
   var _viewedUnits;
   var _idx;
+  var _settings;
 
   function convertCategoriesToProperties(flatIndex) {
     var newList = [];
     flatIndex.forEach(function(item){
       var newItem = _.cloneDeep(item);
-      console.log(item)
+      //console.log(item)
       newItem.profile = "";
       newItem.devices = [];
       newItem.kind = newItem.slug.split("-")[0] // "practice" 
@@ -139,9 +140,11 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
             _downloadedTopics = _db.getCollection('downloadedTopics');
             _topicIndex = _db.getCollection('topicIndex');
             _viewedUnits = _db.getCollection('viewedUnits');
+            _settings = _db.getCollection('settings');
 
             if(!_topics) {
               _topics = _db.addCollection('topics', { unique: ['slug'] });
+              console.log("completed");
             }
 
             if(!_downloadedTopics) {
@@ -159,6 +162,11 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
               loadSearchIndex(fullIndex);
             }
 
+            if(!_settings){
+              _settings = _db.addCollection("settings",{ unique: ['key']});             
+              _settings.insert({key:test, value:test});
+            }
+
             dfd.resolve();
           }
         };
@@ -171,7 +179,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
 
       return dfd.promise;
 
-    },
+    },   
 
     getAllTopics: function() {
       return _topics.chain().find().data();
@@ -209,7 +217,8 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
     },
 
 
-    loadTopics: function(topicList) {
+    loadTopics: function(topicList) {     
+
       //transform the flat list to the format used in the app
       var normalizedTopicList = convertCategoriesToProperties(topicList);
 
@@ -278,6 +287,15 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
           };
           return retVal;
         }).data();
+    },
+
+    saveSettings: function(){
+
+    },
+
+    loadSettings: function(){
+      
+      return _settings.find().data();
     }
   };
 });
