@@ -153,6 +153,29 @@ angular.module('starter.controllers', ['starter.services'])
   $scope.currentUnit = null;
   $scope.incompleteUnits = DBService.getIncompleteUnits();  
   $scope.no_of_incomplete_units = $scope.incompleteUnits.length;
+  
+  // toggling content under the categories
+  $scope.learnVisible = 1;
+  $scope.toolsVisible = 0;
+  $scope.knowledegeVisble =0; 
+
+  $scope.showLearn = function(){
+    $scope.learnVisible = 1;
+    $scope.toolsVisible = 0;
+    $scope.knowledegeVisble =0;
+  }
+
+  $scope.showTools = function(){
+    $scope.learnVisible = 0;
+    $scope.toolsVisible = 1;
+    $scope.knowledegeVisble =0;
+  }
+
+  $scope.showKnowledge = function(){
+    $scope.learnVisible = 0;
+    $scope.toolsVisible = 0;
+    $scope.knowledegeVisble =1 ;
+  }
 
   //if the unit was passed in to the url, add it to the global variable that is also used by the custom URL handler
   if($stateParams.unit) {
@@ -717,12 +740,7 @@ angular.module('starter.controllers', ['starter.services'])
       return false;
     }
   };
-
-  $scope.openUnitInProgress = function(unit_slug){
-    //console.log(unit_slug);
-    $ionicSideMenuDelegate.toggleLeft();
-    $state.go('home.learn?unit=practice-4-safe-social-networks_0-get-started');
-  };
+ 
 
   //initialize the view
   $ionicModal.fromTemplateUrl('templates/unit.html', {

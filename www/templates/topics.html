@@ -23,10 +23,10 @@
           pulling-text="Pull to refresh..."
           on-refresh="refreshTopics()">
         </ion-refresher>
-        <div class="item item-divider">
+        <div class="item item-divider" ng-click="showLearn()">
           <span class="title">Learn</span>
         </div>
-        <div class="card topic-card list" ng-repeat="topic in practice" ng-show="topic.isVisible">
+        <div class="card topic-card list" ng-repeat="topic in practice" ng-show="learnVisible" >
           <div class="item item-image"  ng-show="topic.image" ng-click="toggleUnits(topic)">
             <img ng-src="img/{{topic.image}}">
           </div>
@@ -45,10 +45,10 @@
           <a class="item item-divider item-alert item-icon-right item-download" ng-click="downloadTopic(topic)" ng-show="(!topic.isLatest && topic.isDownloaded)">Click to download an update for this lesson<i class="segment-button-right button-icon icon ion-android-download"></i></a>
         </div>
 
-        <div class="item item-divider">
+        <div class="item item-divider" ng-click="showTools()">
           Tools
         </div>
-        <div class="card topic-card list" ng-repeat="topic in tool" ng-show="topic.isVisible">
+        <div class="card topic-card list" ng-repeat="topic in tool" ng-show="toolsVisible" >
           <div class="item item-image"  ng-show="topic.image" ng-click="toggleUnits(topic)">
             <img ng-src="img/{{topic.image}}">
           </div>
@@ -67,10 +67,10 @@
           <a class="item item-divider item-alert item-icon-right item-download" ng-click="downloadTopic(topic)" ng-show="(!topic.isLatest && topic.isDownloaded)">Click to download an update for this lesson<i class="segment-button-right button-icon icon ion-android-download"></i></a>
         </div>
 
-        <div class="item item-divider">
+        <div class="item item-divider" ng-click="showKnowledge()">
           Knowledge
         </div>
-        <div class="card topic-card list" ng-repeat="topic in understand" ng-show="topic.isVisible">
+        <div class="card topic-card list" ng-repeat="topic in understand" ng-show="knowledegeVisble" >
           <div class="item item-image"  ng-show="topic.image" ng-click="toggleUnits(topic)">
             <img ng-src="img/{{topic.image}}">
           </div>
