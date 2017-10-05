@@ -61,6 +61,7 @@ angular.module('starter.controllers', ['starter.services'])
     // Triggered in the settings modal to close it
     $scope.closeSettings = function() {
       $scope.settingsModal.hide();
+      $state.go('home.learn');
     };
 
     // Open the settings modal
@@ -145,7 +146,7 @@ angular.module('starter.controllers', ['starter.services'])
   });
 })
 
-.controller('TopicsCtrl', function($scope, $state, $stateParams, $q, $http, $ionicFilterBar, $ionicPlatform, $ionicHistory, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService, $cordovaFile) {
+.controller('TopicsCtrl', function($rootScope, $scope, $state, $stateParams, $q, $http, $ionicFilterBar, $ionicPlatform, $ionicHistory, $ionicScrollDelegate, $ionicModal, $ionicPopup, $ionicLoading, $cordovaFileTransfer, $cordovaZip, $timeout, DBService, $cordovaFile, $ionicSideMenuDelegate) {
 
   var INDEX_URL = $scope.settingsData.contentUrl + '/index.json';
   $scope.data = {};
@@ -596,9 +597,9 @@ angular.module('starter.controllers', ['starter.services'])
           console.log(card.contents);
           // card.contents = card.contents.replace(linkingRe, "href=\"#/home/learn?unit=$1_$2\"");
           card.contents = card.contents.replace(linkingRe, "ng-click=\"goToUnit('$1_$2')\"");
-          console.log(card.contents);
+          //console.log(card.contents);
           card.contents = card.contents.replace(linkingCard, "ng-click=\"goTo('$3')\"");
-          console.log(card.contents);
+          //console.log(card.contents);
           // Called to navigate to the main app
 
           var profiles = _.filter(card.category, function(i) {
@@ -715,6 +716,12 @@ angular.module('starter.controllers', ['starter.services'])
     } else {
       return false;
     }
+  };
+
+  $scope.openUnitInProgress = function(unit_slug){
+    //console.log(unit_slug);
+    $ionicSideMenuDelegate.toggleLeft();
+    $state.go('home.learn?unit=practice-4-safe-social-networks_0-get-started');
   };
 
   //initialize the view

@@ -7,7 +7,6 @@
       <ion-nav-buttons side="left">
         <div class="buttons">
           <a class="button button-icon icon ion-ios-bookmarks-outline" menu-toggle="left" ng-click="toQueue()"><span class="badge badge-assertive header-badge">{{no_of_incomplete_units}}</span></a>
-          <!-- <a class="button button-icon icon ion-ios-bookmarks-outline" menu-toggle="left" ng-click="toQueue()"><span class="badge badge-assertive header-badge">5</span></a> -->
         </div>
         <h1 class="title">Wekuume</h1>
         <div class="buttons">
@@ -19,25 +18,7 @@
       <ion-header-bar >
       </ion-header-bar>
 
-      <ion-content class="topic-list">
-        <!-- <sliding-list style="display: block;"><div class="pre-transparency  main-app-feed-fashion"></div>
-        <ion-scroll class="sliding-list-scroll scroll-view ionic-scroll overflow-scroll scroll-x" delegate-handle="sliding-list-scroll" scrollbar-x="false" has-bouncing="false" direction="x" style=""><div class="scroll">
-        	<div class="sliding-list-bg " ng-transclude="">
-            	<ul center-edges="" class="sliding-list"><li style="width: calc(50vw - 50px);"></li>
-                <li class="sliding-item category-practice active" ng-click="select(this)" ng-class="{ active: this.selected }" ng-transclude="" state="main.category.practice">
-                  <a nav-transition="none" ui-sref="main.category.practice()">Practice</a>
-                </li>
-                <li class="sliding-item category-tools" ng-click="select(this)" ng-class="{ active: this.selected }" ng-transclude="" state="main.category.tools">
-                  <a nav-transition="none" ui-sref="main.category.tools()">Tools</a>
-                </li>
-                <li class="sliding-item category-understand" ng-click="select(this)" ng-class="{ active: this.selected }" ng-transclude="" state="main.category.understand">
-                  <a nav-transition="none" ui-sref="main.category.understand()">Understand</a>
-                </li>
-            	<li style="width: calc(50vw - 50px);"></li></ul>
-            </div>
-        </div></ion-scroll>
-        <div class="post-transparency  main-app-feed-fashion"></div>
-        </sliding-list> -->
+      <ion-content class="topic-list">        
         <ion-refresher
           pulling-text="Pull to refresh..."
           on-refresh="refreshTopics()">
@@ -121,9 +102,9 @@
         <div class="item item-divider">
           In Progress
         </div>
-        <a class="item" href="#/app/topics?unit={{unit.slug}}" ng-repeat="unit in incompleteUnits">
+        <a class="item" ng-click="openUnit(unit.slug)" ng-repeat="unit in incompleteUnits">
           <h2>{{unit.title}}</h2>
-          <p>{{unit.parentTitle}}</p>          
+          <p>{{unit.parentTitle}}</p>           
         </a>
         <div class="item item-divider">
           Learn More
