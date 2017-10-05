@@ -42,8 +42,54 @@
           pulling-text="Pull to refresh..."
           on-refresh="refreshTopics()">
         </ion-refresher>
+        <div class="item item-divider">
+          <span class="title">Learn</span>
+        </div>
+        <div class="card topic-card list" ng-repeat="topic in practice" ng-show="topic.isVisible">
+          <div class="item item-image"  ng-show="topic.image" ng-click="toggleUnits(topic)">
+            <img ng-src="img/{{topic.image}}">
+          </div>
+          <ion-item class="item-stable item-icon-right" ng-click="toggleUnits(topic)">
+            <!-- <i class="icon ion-flag item-icon-left" ng-if="topic.kind == 'practice'"></i>
+            <i class="icon ion-wrench item-icon-left" ng-if="topic.kind == 'tool'"></i> -->
+            <!-- <i class="icon ion-university item-icon-left" ng-if="topic.kind == 'understand'"></i> -->
+            <span class="title">{{topic.title}}</span>
+            <a class="button  button-icon icon ion-android-download item-icon-right" ng-show="(!topic.isDownloaded)" ng-click="downloadTopic(topic)"></a>
+            <a class="button  button-icon icon item-icon-right" ng-show="(topic.isDownloaded)" ng-class="{'ion-arrow-down-b': !topic.showUnits, 'ion-arrow-up-b': topic.showUnits }"></a>
+          </ion-item>
+          <ion-item class="item item-icon-right" ng-class="{'item-looks-disabled':!topic.isDownloaded}" ng-repeat="unit in topic.units" ng-click="(topic.isDownloaded ? openUnit(unit.slug) : downloadTopic(topic))" ng-show="(topic.showUnits || unit.isVisible)">
+            <i class="icon unit-icon" ng-class="{'ion-android-download':!topic.isDownloaded,'ion-chevron-right':topic.isDownloaded}"></i>
+            {{unit.title}}
+          </ion-item>
+          <a class="item item-divider item-alert item-icon-right item-download" ng-click="downloadTopic(topic)" ng-show="(!topic.isLatest && topic.isDownloaded)">Click to download an update for this lesson<i class="segment-button-right button-icon icon ion-android-download"></i></a>
+        </div>
 
-        <div class="card topic-card list" ng-repeat="topic in topics" ng-show="topic.isVisible">
+        <div class="item item-divider">
+          Tools
+        </div>
+        <div class="card topic-card list" ng-repeat="topic in tool" ng-show="topic.isVisible">
+          <div class="item item-image"  ng-show="topic.image" ng-click="toggleUnits(topic)">
+            <img ng-src="img/{{topic.image}}">
+          </div>
+          <ion-item class="item-stable item-icon-right" ng-click="toggleUnits(topic)">
+            <!-- <i class="icon ion-flag item-icon-left" ng-if="topic.kind == 'practice'"></i>
+            <i class="icon ion-wrench item-icon-left" ng-if="topic.kind == 'tool'"></i> -->
+            <!-- <i class="icon ion-university item-icon-left" ng-if="topic.kind == 'understand'"></i> -->
+            <span class="title">{{topic.title}}</span>
+            <a class="button  button-icon icon ion-android-download item-icon-right" ng-show="(!topic.isDownloaded)" ng-click="downloadTopic(topic)"></a>
+            <a class="button  button-icon icon item-icon-right" ng-show="(topic.isDownloaded)" ng-class="{'ion-arrow-down-b': !topic.showUnits, 'ion-arrow-up-b': topic.showUnits }"></a>
+          </ion-item>
+          <ion-item class="item item-icon-right" ng-class="{'item-looks-disabled':!topic.isDownloaded}" ng-repeat="unit in topic.units" ng-click="(topic.isDownloaded ? openUnit(unit.slug) : downloadTopic(topic))" ng-show="(topic.showUnits || unit.isVisible)">
+            <i class="icon unit-icon" ng-class="{'ion-android-download':!topic.isDownloaded,'ion-chevron-right':topic.isDownloaded}"></i>
+            {{unit.title}}
+          </ion-item>
+          <a class="item item-divider item-alert item-icon-right item-download" ng-click="downloadTopic(topic)" ng-show="(!topic.isLatest && topic.isDownloaded)">Click to download an update for this lesson<i class="segment-button-right button-icon icon ion-android-download"></i></a>
+        </div>
+
+        <div class="item item-divider">
+          Knowledge
+        </div>
+        <div class="card topic-card list" ng-repeat="topic in understand" ng-show="topic.isVisible">
           <div class="item item-image"  ng-show="topic.image" ng-click="toggleUnits(topic)">
             <img ng-src="img/{{topic.image}}">
           </div>

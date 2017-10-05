@@ -164,7 +164,7 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
 
             if(!_settings){
               _settings = _db.addCollection("settings",{ unique: ['key']});             
-              _settings.insert({key:test, value:test});
+              // _settings.insert({key:test, value:test});
             }
 
             dfd.resolve();

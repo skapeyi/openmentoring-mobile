@@ -1,8 +1,8 @@
 angular.module('starter.controllers', ['starter.services'])
 
 .controller('StartCtrl', function($scope, $state, DBService) {
-  var settings = DBService.loadSettings();
-  console.log(settings);
+  // var settings = DBService.loadSettings();
+  // console.log(settings);
 })
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
@@ -204,27 +204,60 @@ angular.module('starter.controllers', ['starter.services'])
     } else {
       var results = DBService.doSearch($scope.search);
       var resultsHash = _.indexBy(results,'ref');
+      var practice = [];
+      var tool = [];
+      var understand = []
       $scope.topics.forEach(function(topic){
         topic.isVisible = resultsHash[topic.slug];
         topic.showUnits = false;
+         
         topic.units.forEach(function(unit){
           unit.isVisible = resultsHash[unit.slug];
           if(unit.isVisible) {
             topic.isVisible = true;
           }
         });
+        if(topic.kind == "practice"){
+          practice.push(topic);
+        }
+        if(topic.kind == "tool"){
+          tool.push(topic);
+        }
+        if(topic.kind == "understand"){
+          understand.push(topic);
+        }
+        
       });
+      $scope.practice = practice;
+      $scope.tool = tool;
+      $scope.understand = understand;
     }
   };
 
   function _resetViewState(nestedList) {
+    var practice = [];
+    var tool = [];
+    var understand = [];
     nestedList.forEach(function(topic){
       topic.isVisible = true;
-      topic.showUnits = false;
+      topic.showUnits = false;      
       topic.units.forEach(function(unit){
-        unit.isVisible = false;
+        unit.isVisible = false;   
       });
+      if(topic.kind == "practice"){
+        practice.push(topic);
+      }
+      if(topic.kind == "tool"){
+        tool.push(topic);
+      }
+      if(topic.kind == "understand"){
+        understand.push(topic);
+      }
+      
     });
+    $scope.practice = practice;
+    $scope.tool = tool;
+    $scope.understand = understand;
   };
 
   function _activateOrbotOrOverride() {
@@ -265,7 +298,8 @@ angular.module('starter.controllers', ['starter.services'])
 
   function _loadLocalTopicList() {
     var topics = DBService.getAllTopics();
-    $scope.topics = topics;
+    $scope.topics = topics;  
+   
     _doFilter();
   }
 
