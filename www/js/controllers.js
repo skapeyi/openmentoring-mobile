@@ -198,7 +198,8 @@ angular.module('starter.controllers', ['starter.services'])
   function _doFilter() {
     //TODO: apply filter based on results from lunr
     console.log('doFilter');
-
+    $scope.incompleteUnits = DBService.getIncompleteUnits();  
+    $scope.no_of_incomplete_units = $scope.incompleteUnits.length;
     if(_.isEmpty($scope.search)) {
       _resetViewState($scope.topics);
     } else {
@@ -492,6 +493,7 @@ angular.module('starter.controllers', ['starter.services'])
     });
     $scope.modal.hide();
     _loadLocalTopicList();
+    
   };
 
   $scope.$watch('data.slider', function(nv, ov) {
