@@ -1,8 +1,15 @@
 angular.module('starter.controllers', ['starter.services'])
 
 .controller('StartCtrl', function($scope, $state, DBService) {
-  // var settings = DBService.loadSettings();
-  // console.log(settings);
+  var first_time = window.localStorage.getItem("first_time");
+  if(first_time === null ){
+    //console.log("Saving history");
+    window.localStorage.setItem("first_time","false");
+  }else{
+    //console.log("Skipping intro");
+    $state.go('home.learn');
+  }
+   
 })
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {

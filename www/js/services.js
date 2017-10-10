@@ -124,6 +124,8 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
     return _.values(loadListObject);
   };
 
+  
+
   return {
     initDB: function() {
 
@@ -163,8 +165,8 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
             }
 
             if(!_settings){
-              _settings = _db.addCollection("settings",{ unique: ['key']});             
-              // _settings.insert({key:test, value:test});
+              _settings = _db.addCollection("settings",{ unique: "key"});  
+              console.log("Set up completed");
             }
 
             dfd.resolve();
@@ -287,15 +289,6 @@ angular.module('starter.services', ['lodash','ionic','lokijs', 'lunr'])
           };
           return retVal;
         }).data();
-    },
-
-    saveSettings: function(){
-
-    },
-
-    loadSettings: function(){
-      
-      return _settings.find().data();
-    }
+    },  
   };
 });
